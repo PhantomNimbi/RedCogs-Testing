@@ -65,14 +65,30 @@ class Logger(commands.Cog):
         
         
         @Red.on_guild_join()
-        async def on_guild_join(self, ctx):
+        async def on_guild_join(self, ctx, guild):
             
-            ch = await Config.channel(channel)
-            logger_channel = await Config.channel(ch)
+            c = await Config.channel(channel)
+            logger_channel = await Config.channel(c)
             
             e = Embed(title='Logger', description='{} has entered a new guild.'.format(ctx.bot.name), timestamp=datetime.utcnow())
-            e.add_field(name='Guild Name', value='{}'.format(ctx.guild.name), inline=True),
-            e.add_field(name='Guild ID', value='{}'.format(ctx.guild.id), inline=True)
+            e.add_field(name='Guild Name', value='{}'.format(box[guild.name]), inline=True),
+            e.add_field(name='Guild ID', value='{}'.format(box[guild.id]), inline=True)
+            e.color('Blue')
+            e.set_footer(text='Powered by Red-DiscordBot', icon_url='{}'.format(ctx.bot.getAvatarUrl()))
+            await logger_channel.send(embed=e)
+            
+            
+        @Red.on_error()
+        async def on_error(self, ctx, guild, error):
+            
+            c = await Config.channel(channel)
+            logger_channel = await Config.channel(c)
+            
+            e = Embed(title='Logger', description='{} has encountered an error!'.format(ctx.bot.name), timestamp=datetime.utcnow())
+            e.add_field(name='Guild Name', value='{}'.format(box[guild.name]), inline=True),
+            e.add_field(name='Guild ID', value='{}'.format(box[guild.id]), inline=True)
+            e.add_field(name='\u200b', value='\u200b')
+            e.add_field(name='Error Stack', value='{}'.format(box[error.stack]), inline=False)
             e.color('Blue')
             e.set_footer(text='Powered by Red-DiscordBot', icon_url='{}'.format(ctx.bot.getAvatarUrl()))
             await logger_channel.send(embed=e)
