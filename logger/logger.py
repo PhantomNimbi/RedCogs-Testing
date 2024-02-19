@@ -1,15 +1,12 @@
-from typing import Literal
+import discord
+import datetime
+
 from redbot.core import Config, commands
-from redbot.core.bot import Red
 from redbot.core.utils.chat_formatting import box, warning
-from discord import Embed, TextChannel, Color
-from datetime import datetime
 
 class Logger(commands.Cog):
-    """_summary_
-
-    Args:
-        commands (_type_): _description_
+    """
+    Logger cog for logging events to a specified channel
     """
     
     def __init__(self, bot):
@@ -25,18 +22,21 @@ class Logger(commands.Cog):
     @commands.is_owner()
     async def logger(self, ctx):
         """
-        Logger cog for logging events to a sepcific channel
+        Logger setup command.
+                
+        Usage: [p]logger [command] [option]
         """
         pass
     
     @logger.command(name='channel')
-    async def set_channel(self, ctx, channel: TextChannel):
+    async def set_channel(self, ctx, channel):
         """
         Set the logging channel to send the logs to.
         
         Usage: [p]logger channel [#channel]
         """
-        await self.config.logger_channel.set(channel)
+        c = await ctx.get_channel(str(channel))
+        await self.config.logger_channel.set(c)
         
         await ctx.send('Successfully enabled logger') 
         
@@ -52,10 +52,10 @@ class Logger(commands.Cog):
             else:
                 logger_channel = await ctx.get_channel(self.config.logger_channel)
             
-                e = Embed(title='Logger', description='{} has entered a new guild.'.format(ctx.bot.name), timestamp=datetime.utcnow())
+                e = discord.Embed(title='Logger', description='{} has entered a new guild.'.format(ctx.bot.name), timestamp=datetime.datetime.utcnow())
                 e.add_field(name='Guild Name', value='{}'.format(box[guild.name]), inline=True),
                 e.add_field(name='Guild ID', value='{}'.format(box[guild.id]), inline=True)
-                e.color(Color.blue)
+                e.color(discord.Color.blue)
                 e.set_footer(text='Powered by Red-DiscordBot', icon_url='{}'.format(self.bot.user.display_avatar.url))
                 await logger_channel.send(embed=e)
             
@@ -72,11 +72,11 @@ class Logger(commands.Cog):
                 logger_channel = await ctx.get_channel(self.config.logger_channel)
             
             
-                e = Embed(title='Logger', description='{} has encountered an error!'.format(ctx.bot.name), timestamp=datetime.utcnow())
+                e = discord.Embed(title='Logger', description='{} has encountered an error!'.format(ctx.bot.name), timestamp=datetime.datetime.utcnow())
                 e.add_field(name='Guild Name', value='{}'.format(box[guild.name]), inline=True),
                 e.add_field(name='Guild ID', value='{}'.format(box[guild.id]), inline=True)
                 e.add_field(name='\u200b', value='\u200b')
                 e.add_field(name='Error Stack', value='{}'.format(warning[error.stack]), inline=False)
-                e.color(Color.blue)
+                e.color(discord.Color.blue)
                 e.set_footer(text='Powered by Red-DiscordBot', icon_url='{}'.format(self.bot.user.display_avatar.url))
                 await logger_channel.send(embed=e)
