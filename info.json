@@ -1,0 +1,9 @@
+{
+ "author": ["TBR-Development"],
+ "install_msg": "Thank you for installing our repo! If you need help, feel free to join our discord at https://dsc.gg/the-back-room or create an issue on Github.",
+ "name": "BackRoomCogs",
+ "short": "Cogs for Red-DiscordBot",
+ "description": "A collection of Cogs for Red-DiscordBot.",
+ "requirements": [],
+ "tags": ["fun", "image", "nsfw", "utility", "functionalities"]
+}
