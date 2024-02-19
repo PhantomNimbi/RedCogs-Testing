@@ -47,9 +47,13 @@ class Logger(commands.Cog):
         
         
         @commands.Cog.listener()
-        async def on_guild_join(self, guild):
-            
-            ctx = self.bot.get_context()
+        async def on_guild_join(self, ctx, guild):
+            """_summary_
+
+            Args:
+                ctx (_type_): _description_
+                guild (_type_): _description_
+            """
             logger_channel = await ctx.get_channel(self.config.channel)
             
             e = Embed(title='Logger', description='{} has entered a new guild.'.format(ctx.bot.name), timestamp=datetime.utcnow())
@@ -61,10 +65,16 @@ class Logger(commands.Cog):
             
             
         @commands.Cog.listener()
-        async def on_error(self, guild, error):
-            
-            ctx = self.bot.get_context()
+        async def on_error(self, ctx, guild, error):
+            """_summary_
+
+            Args:
+                ctx (_type_): _description_
+                guild (_type_): _description_
+                error (_type_): _description_
+            """
             logger_channel = await ctx.get_channel(self.config.channel)
+            
             
             e = Embed(title='Logger', description='{} has encountered an error!'.format(ctx.bot.name), timestamp=datetime.utcnow())
             e.add_field(name='Guild Name', value='{}'.format(box[guild.name]), inline=True),
