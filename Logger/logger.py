@@ -46,9 +46,10 @@ class Logger(commands.Cog):
         await ctx.send('Successfully enabled logger') 
         
         
-        @Red.on_guild_join()
-        async def on_guild_join(self, ctx, guild):
+        @commands.Cog.listener()
+        async def on_guild_join(self, guild):
             
+            ctx = self.bot.get_context()
             logger_channel = await ctx.get_channel(self.config.channel)
             
             e = Embed(title='Logger', description='{} has entered a new guild.'.format(ctx.bot.name), timestamp=datetime.utcnow())
@@ -59,9 +60,10 @@ class Logger(commands.Cog):
             await logger_channel.send(embed=e)
             
             
-        @Red.on_error()
-        async def on_error(self, ctx, guild, error):
+        @commands.Cog.listener()
+        async def on_error(self, guild, error):
             
+            ctx = self.bot.get_context()
             logger_channel = await ctx.get_channel(self.config.channel)
             
             e = Embed(title='Logger', description='{} has encountered an error!'.format(ctx.bot.name), timestamp=datetime.utcnow())
