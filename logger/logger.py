@@ -29,7 +29,7 @@ class Logger(commands.Cog):
         pass
     
     @logger.command(name='channel')
-    async def set_channel(self, ctx, *, channel: discord.Channel):
+    async def set_channel(self, ctx, channel: discord.TextChannel):
         """
         Set the logging channel to send the logs to.
         
