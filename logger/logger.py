@@ -36,7 +36,7 @@ class Logger(commands.Cog):
         Usage: [p]logger channel [#channel]
         """
 
-        await self.config.logger_channel.set(channel)
+        await self.config.logger_channel.set(channel.id)
         
         await ctx.send('Successfully enabled logger') 
         
