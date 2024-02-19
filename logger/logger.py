@@ -42,7 +42,7 @@ class Logger(commands.Cog):
         
         
     @commands.Cog.listener()
-    async def on_guild_join(self, ctx, guild):
+    async def on_guild_join(self, ctx):
         """
         Log guild join events to the logger channel if it is set
         """
@@ -53,15 +53,15 @@ class Logger(commands.Cog):
             logger_channel = await self.bot.get_channel(await self.config.logger_channel())
             
             e = discord.Embed(title='Logger', description='{} has entered a new guild.'.format(ctx.bot.name), timestamp=datetime.datetime.utcnow())
-            e.add_field(name='Guild Name', value='{}'.format(box[guild.name]), inline=True),
-            e.add_field(name='Guild ID', value='{}'.format(box[guild.id]), inline=True)
+            e.add_field(name='Guild Name', value='{}'.format(box[ctx.guild.name]), inline=True),
+            e.add_field(name='Guild ID', value='{}'.format(box[ctx.guild.id]), inline=True)
             e.color(discord.Color.blue)
             e.set_footer(text='Powered by Red-DiscordBot', icon_url='{}'.format(self.bot.user.display_avatar.url))
             await logger_channel.send(embed=e)
             
             
     @commands.Cog.listener()
-    async def on_error(self, ctx, guild, error):
+    async def on_error(self, ctx, error):
         """
         Log on error events to the logger channel if it is set
         """
@@ -73,8 +73,8 @@ class Logger(commands.Cog):
             
             
             e = discord.Embed(title='Logger', description='{} has encountered an error!'.format(ctx.bot.name), timestamp=datetime.datetime.utcnow())
-            e.add_field(name='Guild Name', value='{}'.format(box[guild.name]), inline=True),
-            e.add_field(name='Guild ID', value='{}'.format(box[guild.id]), inline=True)
+            e.add_field(name='Guild Name', value='{}'.format(box[ctx.guild.name]), inline=True),
+            e.add_field(name='Guild ID', value='{}'.format(box[ctx.guild.id]), inline=True)
             e.add_field(name='\u200b', value='\u200b')
             e.add_field(name='Error Stack', value='{}'.format(warning[error.stack]), inline=False)
             e.color(discord.Color.blue)
