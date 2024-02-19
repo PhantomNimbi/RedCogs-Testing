@@ -52,7 +52,7 @@ class Logger(commands.Cog):
         else:
             logger_channel = self.bot.get_channel(await self.config.logger_channel())
             
-            e = discord.Embed(title='Logger', description='{} has entered a new guild.'.format(self.bot.name), timestamp=datetime.datetime.utcnow())
+            e = discord.Embed(title='Logger', description='{} has entered a new guild.'.format(self.bot.user.name), timestamp=datetime.datetime.utcnow())
             e.add_field(name='Guild Name', value='{}'.format(box[self.bot.guild.name]), inline=True),
             e.add_field(name='Guild ID', value='{}'.format(box[self.bot.guild.id]), inline=True)
             e.color(discord.Color.blue)
