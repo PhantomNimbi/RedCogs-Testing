@@ -46,17 +46,14 @@ class Logger(commands.Cog):
         """
         Log guild join events to the logger channel if it is set
         """
-
-        if (self.config.logger_channel == None):                
-            return
-        else:
-            logger_channel = self.bot.get_channel(await self.config.logger_channel())
+        
+        logger_channel = self.bot.get_channel(await self.config.logger_channel())
             
-            e = discord.Embed(title='Logger', description='The bot has entered a new guild.', timestamp=datetime.datetime.utcnow())
-            e.add_field(name='Guild Name', value=box[guild.name], inline=True),
-            e.add_field(name='Guild ID', value=box[guild.id], inline=True)
-            e.color(discord.Color.blue)
-            e.set_footer(text='Powered by Red-DiscordBot', icon_url=self.bot.user.display_avatar.url)
-            await logger_channel.send(embed=e)
+        e = discord.Embed(title='Logger', description='The bot has entered a new guild.', timestamp=datetime.datetime.utcnow())
+        e.add_field(name='Guild Name', value=box(guild.name), inline=True),
+        e.add_field(name='Guild ID', value=box(guild.id), inline=True)
+        e.color(discord.Color.blue)
+        e.set_footer(text='Powered by Red-DiscordBot', icon_url=self.bot.user.display_avatar.url)
+        await logger_channel.send(embed=e)
             
             
