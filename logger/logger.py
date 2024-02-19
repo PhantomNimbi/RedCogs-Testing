@@ -77,6 +77,6 @@ class Logger(commands.Cog):
                 e.add_field(name='Guild ID', value='{}'.format(box[guild.id]), inline=True)
                 e.add_field(name='\u200b', value='\u200b')
                 e.add_field(name='Error Stack', value='{}'.format(warning[error.stack]), inline=False)
-                e.color(Color.blue
+                e.color(Color.blue)
                 e.set_footer(text='Powered by Red-DiscordBot', icon_url='{}'.format(self.bot.user.display_avatar.url))
                 await logger_channel.send(embed=e)
