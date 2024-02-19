@@ -42,21 +42,21 @@ class Logger(commands.Cog):
         
         
     @commands.Cog.listener()
-    async def on_guild_join(self, event):
+    async def on_guild_join(self, guild):
         """
         Log guild join events to the logger channel if it is set
         """
-            
+
         if (self.config.logger_channel == None):                
             return
         else:
             logger_channel = self.bot.get_channel(await self.config.logger_channel())
             
-            e = discord.Embed(title='Logger', description='{} has entered a new guild.'.format(self.bot.user.name), timestamp=datetime.datetime.utcnow())
-            e.add_field(name='Guild Name', value='{}'.format(box[self.bot.guild.name]), inline=True),
-            e.add_field(name='Guild ID', value='{}'.format(box[self.bot.guild.id]), inline=True)
+            e = discord.Embed(title='Logger', description='The bot has entered a new guild.', timestamp=datetime.datetime.utcnow())
+            e.add_field(name='Guild Name', value=box[guild.name], inline=True),
+            e.add_field(name='Guild ID', value=box[guild.id], inline=True)
             e.color(discord.Color.blue)
-            e.set_footer(text='Powered by Red-DiscordBot', icon_url='{}'.format(self.bot.user.display_avatar.url))
+            e.set_footer(text='Powered by Red-DiscordBot', icon_url=self.bot.user.display_avatar.url)
             await logger_channel.send(embed=e)
             
     
@@ -66,7 +66,7 @@ class Logger(commands.Cog):
     # Still working on the full scope of what types of errors to build this for
     #         
     # @commands.Cog.listener()
-    # async def on_command_error(self, event, error):
+    # async def on_command_error(self, guild):
     #     """
     #     Log on error events to the logger channel if it is set
     #     """
