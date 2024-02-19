@@ -29,14 +29,14 @@ class Logger(commands.Cog):
         pass
     
     @logger.command(name='channel')
-    async def set_channel(self, ctx, channel):
+    async def set_channel(self, ctx, *, channel: discord.Channel):
         """
         Set the logging channel to send the logs to.
         
         Usage: [p]logger channel [#channel]
         """
-        c = await self.bot.get_channel(str(channel))
-        await self.config.logger_channel.set(c)
+
+        await self.config.logger_channel.set(channel)
         
         await ctx.send('Successfully enabled logger') 
         
