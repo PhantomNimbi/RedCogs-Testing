@@ -49,10 +49,10 @@ class Logger(commands.Cog):
         
         logger_channel = self.bot.get_channel(await self.config.logger_channel())
             
-        e = discord.Embed(title='Logger', description='The bot has entered a new guild.', timestamp=datetime.datetime.utcnow())
+        e = discord.Embed(title='Logger', description='The bot has been added to a new guild.', timestamp=datetime.datetime.utcnow())
         e.add_field(name='Guild Name', value=box(guild.name), inline=True),
         e.add_field(name='Guild ID', value=box(guild.id), inline=True)
         e.set_footer(text='Powered by Red-DiscordBot', icon_url=self.bot.user.display_avatar.url)
         await logger_channel.send(embed=e)
-            
+        
             
