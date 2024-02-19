@@ -35,7 +35,7 @@ class Logger(commands.Cog):
         
         Usage: [p]logger channel [#channel]
         """
-        c = await ctx.get_channel(str(channel))
+        c = await self.bot.get_channel(str(channel))
         await self.config.logger_channel.set(c)
         
         await ctx.send('Successfully enabled logger') 
@@ -50,7 +50,7 @@ class Logger(commands.Cog):
             if (self.config.logger_channel == None):                
                 return
             else:
-                logger_channel = await ctx.get_channel(self.config.logger_channel)
+                logger_channel = await self.bot.get_channel(self.config.logger_channel)
             
                 e = discord.Embed(title='Logger', description='{} has entered a new guild.'.format(ctx.bot.name), timestamp=datetime.datetime.utcnow())
                 e.add_field(name='Guild Name', value='{}'.format(box[guild.name]), inline=True),
@@ -69,7 +69,7 @@ class Logger(commands.Cog):
             if (self.config.logger_channel == None):                
                 return
             else:
-                logger_channel = await ctx.get_channel(self.config.logger_channel)
+                logger_channel = await self.bot.get_channel(self.config.logger_channel)
             
             
                 e = discord.Embed(title='Logger', description='{} has encountered an error!'.format(ctx.bot.name), timestamp=datetime.datetime.utcnow())
